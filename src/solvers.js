@@ -41,17 +41,21 @@ window.countNRooksSolutions = function(n) {
       var row = n - rooksAvailable; 
 
       outcomesSoFar.togglePiece(row,column); // preset it before testing    
-      if (outcomesSoFar.hasAnyRooksConflicts()){
+      if (outcomesSoFar.hasAnyRooksConflicts()){ // if there is a conflict
         outcomesSoFar.togglePiece(row,column);
       }
-    
-      combos(rooksAvailable - 1, outcomesSoFar);      
+      else { // else, there's not a conflict
+        //debugger;
+        rooksAvailable--;
+        combos(rooksAvailable, outcomesSoFar);      
+        outcomesSoFar.togglePiece(row, column); 
+        rooksAvailable++;
+      }
       
-      rooksAvailable++;
 
       // if it satisfies the conditions, go into the recursion as above, if not
       // go back into the loop
-      outcomesSoFar.togglePiece(row, column);
+      //
     } // end for loop
 
   } // end combos
